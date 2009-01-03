@@ -9,7 +9,7 @@ use base 'SMS::Send::Driver';
 
 use vars qw{$VERSION};
 BEGIN {
-   $VERSION = '0.01';
+   $VERSION = '0.02';
 }
 
 # Preloaded methods go here.
@@ -41,16 +41,21 @@ sub send_sms {
 
    $ua->agent_alias('Windows IE 6');
    $ua->get($baseurl);
+   $ua->submit();
+   $ua->submit();
 
    $ua->submit_form(
-        form_name => 'myform',
+        form_name => 'form1',
         fields    => {
-                        MSISDN  => $self->{"_username"},
-                        PASSWD  => $self->{"_password"},
+                        uid  => $self->{"_username"},
+                        pw   => $self->{"_password"},
                      },
    );
 
    $ua->get($baseurl);
+   $ua->submit();
+   $ua->submit();
+
    $ua->form_name('form1');
 
    $ua->field('nextURL','0');
