@@ -1,5 +1,8 @@
 Revision history for Perl extension SMS::Send::TW::emome.
 
+0.03  2009 Jan 12 12:36:00 AM
+	- Fix Bug
+
 0.02  2009 Jan 3 10:48:00 PM
 	- Fix Module for the new website of http://www.emome.net/
 

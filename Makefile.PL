@@ -8,6 +8,7 @@ WriteMakefile(
 	    'SMS::Send'                 => 0.03,
 	    'WWW::Mechanize'		=> 1.20,
 	    'Text::Iconv'		=> 1.50,
+	    'Crypt::SSLeay'		=> 0.57,
         }, # e.g., Module::Name => 1.1    
     ($] >= 5.006001 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/SMS/Send/TW/emome.pm', # retrieve abstract from module

@@ -9,7 +9,7 @@ use base 'SMS::Send::Driver';
 
 use vars qw{$VERSION};
 BEGIN {
-   $VERSION = '0.02';
+   $VERSION = '0.03';
 }
 
 # Preloaded methods go here.
@@ -43,7 +43,6 @@ sub send_sms {
    $ua->get($baseurl);
    $ua->submit();
    $ua->submit();
-
    $ua->submit_form(
         form_name => 'form1',
         fields    => {
@@ -52,14 +51,14 @@ sub send_sms {
                      },
    );
 
+   $ua->submit();
+   $ua->submit();
    $ua->get($baseurl);
-   $ua->submit();
-   $ua->submit();
 
    $ua->form_name('form1');
 
    $ua->field('nextURL','0');
-   $ua->field('resend','0');    			# 0:不重送　1:重送
+   $ua->field('resend','1');    			# 0:不重送　1:重送
    $ua->field('language',$self->{"_language"});  	# 1:中文　  2:英文
 
    $ua->field('phonelist',$recipient);
@@ -138,6 +137,7 @@ supposed to be delivered.
 =over 5
 
 =item * L<Send::SMS>
+
 =item * L<WWW::Mechanize>
 
 =head1 AUTHOR
