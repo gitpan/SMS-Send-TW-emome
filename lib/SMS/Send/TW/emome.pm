@@ -9,7 +9,7 @@ use base 'SMS::Send::Driver';
 
 use vars qw{$VERSION};
 BEGIN {
-   $VERSION = '0.03';
+   $VERSION = '0.04';
 }
 
 # Preloaded methods go here.
@@ -30,6 +30,7 @@ sub send_sms {
    my $self   = shift;
    my %params = @_;
    my $baseurl = 'http://websms1.emome.net/sms/sendsms/new.jsp?msg=';
+   my $posturl = 'http://websms1.emome.net/sms/sendsms/send.jsp';
 
    # Get the message and destination
    my $message   = $self->_MESSAGE( $params{text} );
@@ -51,23 +52,18 @@ sub send_sms {
                      },
    );
 
-   $ua->submit();
-   $ua->submit();
-   $ua->get($baseurl);
+   $ua->content() =~ /window.location.href='(.+)'/i;
+   $ua->get($1);
+   $ua->post($posturl,
+		[
+		  'nextURL' 	  => '0',
+		  'resend'	  => '1',			# 0:不重送　1:重送
+		  'language'	  => $self->{"_language"},	# 1:中文　  2:英文
+		  'phonelist'	  => $recipient,
+		  'data'	  => $message,
+		  'rad'		  => '0', 			# 0:立即傳送  1:預約傳送
+		]);
 
-   $ua->form_name('form1');
-
-   $ua->field('nextURL','0');
-   $ua->field('resend','1');    			# 0:不重送　1:重送
-   $ua->field('language',$self->{"_language"});  	# 1:中文　  2:英文
-
-   $ua->field('phonelist',$recipient);
-   $ua->field('data',$message);
-   $ua->field('rad','0');				# 0:立即傳送  1:預約傳送
-
-   $ua->current_form()->action('http://websms1.emome.net/sms/sendsms/send.jsp');
-   $ua->submit();
-   
    return $ua->content;
 }
 

@@ -1,5 +1,9 @@
 Revision history for Perl extension SMS::Send::TW::emome.
 
+0.04  2010 Feb 17 10:40:00 PM
+	- Fix get a Mojibake SMS when input big5 message.
+	- Fix Module for the new website of http://www.emome.net/
+
 0.03  2009 Jan 12 12:36:00 AM
 	- Fix Bug
 
